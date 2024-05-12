@@ -22,7 +22,7 @@
  * for instance the href of a link, or a search term
  */
 function sampleRUM(checkpoint, data = {}) {
-  const SESSION_STORAGE_KEY = 'aa4fe20c-2271-488e-976e-932e4512568c';
+  const SESSION_STORAGE_KEY = 'aem-rum';
   sampleRUM.baseURL = sampleRUM.baseURL
     || new URL(window.RUM_BASE == null ? 'https://rum.hlx.page' : window.RUM_BASE, window.location);
   sampleRUM.defer = sampleRUM.defer || [];
