@@ -30,7 +30,6 @@ window.hlx.plugins.add('experimentation', {
   url: '/plugins/experimentation/src/index.js',
 });
 
-
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
 /**
