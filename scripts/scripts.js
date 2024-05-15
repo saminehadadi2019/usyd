@@ -23,18 +23,16 @@ const AUDIENCES = {
 // Setup HLX namespace and plugins configuration
 window.hlx = window.hlx || {};
 window.hlx.plugins = window.hlx.plugins || {};
+/* eslint-disable no-alert, no-console */
 window.hlx.plugins.add('experimentation', {
-  // eslint-disable-next-line no-use-before-define
   condition: () => getMetadata('experiment')
-  // eslint-disable-next-line no-use-before-define
     || Object.keys(getAllMetadata('campaign')).length
-    // eslint-disable-next-line no-use-before-define
     || Object.keys(getAllMetadata('audience')).length,
   options: { audiences: AUDIENCES },
   url: '/plugins/experimentation/src/index.js',
 });
 
-
+/* eslint-enable no-alert */
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
