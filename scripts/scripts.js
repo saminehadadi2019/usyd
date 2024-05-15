@@ -4,9 +4,7 @@ const AUDIENCES = {
   // define your custom audiences here as needed
 };
 
-/**
- * Add experimentation plugin configuration
- */
+// Setup HLX namespace and plugins configuration
 window.hlx = window.hlx || {};
 window.hlx.plugins = window.hlx.plugins || {};
 window.hlx.plugins.add('experimentation', {
