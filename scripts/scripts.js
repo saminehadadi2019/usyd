@@ -12,10 +12,10 @@ import {
   loadBlocks,
   loadCSS,
   getAllMetadata,
-  getMetadata,
   loadScript,
   toCamelCase,
   toClassName,
+  getMetadata,
 } from './aem.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -35,12 +35,12 @@ window.hlx.plugins.add('experimentation', {
 
 const pluginContext = {
   getAllMetadata,
-  getMetadata,
   loadCSS,
   loadScript,
   sampleRUM,
   toCamelCase,
   toClassName,
+  getMetadata,
 };
 
 /**
