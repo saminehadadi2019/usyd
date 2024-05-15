@@ -11,16 +11,15 @@ module.exports = {
     requireConfigFile: false,
   },
   rules: {
-    // Allow reassigning parameters but not their properties
-    'no-param-reassign': [2, { props: false }],
+    'no-param-reassign': [2, { props: false }], // Allow reassigning parameters but not their properties
     'linebreak-style': ['error', 'unix'],
     'import/extensions': ['error', {
       js: 'always',
     }],
-    'no-undef': 'off'  // This disables the no-undef rule completely
+    'no-undef': 'off', // This disables the no-undef rule completely
   },
   globals: {
-    getMetadata: "readonly",
-    getAllMetadata: "readonly"
-  }
+    getMetadata: 'readonly', // Use single quotes
+    getAllMetadata: 'readonly', // Use single quotes
+  },
 };
