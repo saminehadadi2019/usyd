@@ -43,12 +43,6 @@ const pluginContext = {
   toClassName,
 };
 
-// Add you templates below
-// window.hlx.templates.add('/templates/my-template');
-
-// Add you plugins below
-// window.hlx.plugins.add('/plugins/my-plugin.js');
-
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
@@ -153,6 +147,9 @@ async function loadLazy(doc) {
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
   sampleRUM.observe(main.querySelectorAll('picture > img'));
+
+
+
 }
 
 /**
