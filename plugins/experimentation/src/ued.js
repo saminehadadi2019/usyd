@@ -13,11 +13,13 @@ function murmurhash3_32_gc(key, seed) {
   let i = 0;
 
   while (i < bytes) {
+    // Use parentheses to clarify the order of operations and align operators as per the ESLint config
     k1 = (key.charCodeAt(i) & 0xff) |
-         (key.charCodeAt(i += 1) & 0xff) << 8 |
-         (key.charCodeAt(i += 1) & 0xff) << 16 |
-         (key.charCodeAt(i += 1) & 0xff) << 24;
-    i += 1;
+         ((key.charCodeAt(i + 1) & 0xff) << 8) |
+         ((key.charCodeAt(i + 2) & 0xff) << 16) |
+         ((key.charCodeAt(i + 3) & 0xff) << 24);
+    i += 4; // Increment i by 4 as we are processing four bytes each loop iteration
+
     k1 = ((((k1 & 0xffff) * c1) + ((((k1 >>> 16) * c1) & 0xffff) << 16))) & 0xffffffff;
     k1 = (k1 << 15) | (k1 >>> 17);
     k1 = ((((k1 & 0xffff) * c2) + ((((k1 >>> 16) * c2) & 0xffff) << 16))) & 0xffffffff;
@@ -25,7 +27,7 @@ function murmurhash3_32_gc(key, seed) {
     h1 = (h1 << 13) | (h1 >>> 19);
     h1b = ((((h1 & 0xffff) * 5) + ((((h1 >>> 16) * 5) & 0xffff) << 16))) & 0xffffffff;
     h1 = (((h1b & 0xffff) + 0x6b64) + ((((h1b >>> 16) + 0xe654) & 0xffff) << 16));
-  }
+}
 
   k1 = 0;
   switch (remainder) {
