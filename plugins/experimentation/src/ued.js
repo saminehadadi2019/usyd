@@ -1,3 +1,4 @@
+/* eslint-enable */
 /*
  * Copyright 2022 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -10,10 +11,7 @@
  * governing permissions and limitations under the License.
  */
 
-/* eslint-enable */
 var storage = window.sessionStorage;
-
-/* eslint-disable no-console, eqeqeq */
 function murmurhash3_32_gc(key, seed) {
   var remainder = key.length & 3;
   var bytes = key.length - remainder;
