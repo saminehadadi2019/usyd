@@ -31,14 +31,17 @@ function murmurhash3_32_gc(key, seed) {
   switch (remainder) {
     case 3:
       k1 ^= (key.charCodeAt(i + 2) & 0xff) << 16;
+      break;
     case 2:
       k1 ^= (key.charCodeAt(i + 1) & 0xff) << 8;
+      break;
     case 1:
       k1 ^= (key.charCodeAt(i) & 0xff);
       k1 = (((k1 & 0xffff) * c1) + ((((k1 >>> 16) * c1) & 0xffff) << 16)) & 0xffffffff;
       k1 = (k1 << 15) | (k1 >>> 17);
       k1 = (((k1 & 0xffff) * c2) + ((((k1 >>> 16) * c2) & 0xffff) << 16)) & 0xffffffff;
       h1 ^= k1;
+      break;
     default:
       break;
   }
@@ -63,7 +66,7 @@ function getBucket(saltedId) {
 function pickWithWeightsBucket(allocationPercentages, treatments, bucket) {
   const sum = allocationPercentages.reduce((partialSum, a) => partialSum + a, 0);
   let partialSum = 0.0;
-  for (let i = 0; i < treatments.length; i++) {
+  for (let i = 0; i < treatments.length; i = i + 1) {
     partialSum += Number(allocationPercentages[i].toFixed(2)) / sum;
     if (bucket <= partialSum) {
       return treatments[i];
@@ -104,8 +107,8 @@ function getLastExperimentTreatment(experimentId) {
 }
 
 function setLastExperimentTreatment(experimentId, treatment) {
-  let experimentsStr = storage.getItem(LOCAL_STORAGE_KEY);
-  let experiments = experimentsStr ? JSON.parse(experimentsStr) : {};
+  const experimentsStr = storage.getItem(LOCAL_STORAGE_KEY);
+  const experiments = experimentsStr ? JSON.parse(experimentsStr) : {};
   const now = new Date();
   Object.keys(experiments).forEach((key) => {
     const expirationTime = 1000 * 86400 * 30; // 30 days
@@ -153,7 +156,7 @@ function evaluateExperiment(context, experiment) {
       treatmentAssignment = assignTreatmentByDevice(experimentId, allocationPercentages, treatments);
       break;
     default:
-      throw new Error("Unknown randomization unit");
+      throw new Error('Unknown randomization unit');
   }
   return {
     experimentId,
