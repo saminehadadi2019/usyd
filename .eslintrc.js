@@ -17,7 +17,7 @@ module.exports = {
       js: 'always',
     }],
     'no-undef': 'off', // This disables the no-undef rule completely
-    'no-use-before-define' : 'off'
+    'no-use-before-define': 'off', // Corrected spacing here
   },
   globals: {
     getMetadata: 'readonly', // Use single quotes
