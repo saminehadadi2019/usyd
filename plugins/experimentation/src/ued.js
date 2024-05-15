@@ -8,14 +8,16 @@ function murmurhash3_32_gc(key, seed) {
   const c1 = 0xcc9e2d51;
   const c2 = 0x1b873593;
   let h1 = seed;
-  let k1, h1b, i = 0;
+  let k1;
+  let h1b;
+  let i = 0;
 
   while (i < bytes) {
-    k1 = ((key.charCodeAt(i) & 0xff)) |
-         ((key.charCodeAt(++i) & 0xff) << 8) |
-         ((key.charCodeAt(++i) & 0xff) << 16) |
-         ((key.charCodeAt(++i) & 0xff) << 24);
-    ++i;
+    k1 = (key.charCodeAt(i) & 0xff) |
+         (key.charCodeAt(i += 1) & 0xff) << 8 |
+         (key.charCodeAt(i += 1) & 0xff) << 16 |
+         (key.charCodeAt(i += 1) & 0xff) << 24;
+    i += 1;
     k1 = ((((k1 & 0xffff) * c1) + ((((k1 >>> 16) * c1) & 0xffff) << 16))) & 0xffffffff;
     k1 = (k1 << 15) | (k1 >>> 17);
     k1 = ((((k1 & 0xffff) * c2) + ((((k1 >>> 16) * c2) & 0xffff) << 16))) & 0xffffffff;
@@ -27,16 +29,18 @@ function murmurhash3_32_gc(key, seed) {
 
   k1 = 0;
   switch (remainder) {
-    case 3: k1 ^= (key.charCodeAt(i + 2) & 0xff) << 16;
-    // fall through
-    case 2: k1 ^= (key.charCodeAt(i + 1) & 0xff) << 8;
-    // fall through
+    case 3:
+      k1 ^= (key.charCodeAt(i + 2) & 0xff) << 16;
+    case 2:
+      k1 ^= (key.charCodeAt(i + 1) & 0xff) << 8;
     case 1:
       k1 ^= (key.charCodeAt(i) & 0xff);
       k1 = (((k1 & 0xffff) * c1) + ((((k1 >>> 16) * c1) & 0xffff) << 16)) & 0xffffffff;
       k1 = (k1 << 15) | (k1 >>> 17);
       k1 = (((k1 & 0xffff) * c2) + ((((k1 >>> 16) * c2) & 0xffff) << 16)) & 0xffffffff;
       h1 ^= k1;
+    default:
+      break;
   }
   h1 ^= key.length;
   h1 ^= h1 >>> 16;
@@ -61,12 +65,11 @@ function pickWithWeightsBucket(allocationPercentages, treatments, bucket) {
   let partialSum = 0.0;
   for (let i = 0; i < treatments.length; i++) {
     partialSum += Number(allocationPercentages[i].toFixed(2)) / sum;
-    if (bucket > partialSum) {
-      continue;
+    if (bucket <= partialSum) {
+      return treatments[i];
     }
-    return treatments[i];
   }
-  return null; // Explicitly return null if no treatment is picked
+  return null; // Ensure function returns a value even if no condition is met
 }
 
 function assignTreatmentByVisitor(experimentId, identityId, allocationPercentages, treatments) {
@@ -86,30 +89,27 @@ function assignTreatment(allocationPercentages, treatments) {
   let i = treatments.length;
   while (random > 0 && i > 0) {
     i -= 1;
-    random -= +allocationPercentages[i];
+    random -= allocationPercentages[i];
   }
-  return treatments[i];
+  return treatments[Math.max(i, 0)]; // Ensure index is within bounds
 }
 
 function getLastExperimentTreatment(experimentId) {
   const experimentsStr = storage.getItem(LOCAL_STORAGE_KEY);
   if (experimentsStr) {
     const experiments = JSON.parse(experimentsStr);
-    if (experiments[experimentId]) {
-      return experiments[experimentId].treatment;
-    }
+    return experiments[experimentId] ? experiments[experimentId].treatment : null;
   }
   return null;
 }
 
 function setLastExperimentTreatment(experimentId, treatment) {
-  const experimentsStr = storage.getItem(LOCAL_STORAGE_KEY);
-  const experiments = experimentsStr ? JSON.parse(experimentsStr) : {};
+  let experimentsStr = storage.getItem(LOCAL_STORAGE_KEY);
+  let experiments = experimentsStr ? JSON.parse(experimentsStr) : {};
   const now = new Date();
-  const expKeys = Object.keys(experiments);
-  expKeys.forEach((key) => {
-    const date = new Date(experiments[key].date);
-    if ((now.getTime() - date.getTime()) > (1000 * 86400 * 30)) {
+  Object.keys(experiments).forEach((key) => {
+    const expirationTime = 1000 * 86400 * 30; // 30 days
+    if ((now.getTime() - new Date(experiments[key].date).getTime()) > expirationTime) {
       delete experiments[key];
     }
   });
@@ -145,26 +145,23 @@ function evaluateExperiment(context, experiment) {
   const allocationPercentages = experiment.treatments.map(item => item.allocationPercentage);
   let treatmentAssignment = null;
   switch (randomizationUnit) {
-    case RandomizationUnit.VISITOR: {
+    case RandomizationUnit.VISITOR:
       const identityId = identityMap[identityNamespace][0].id;
       treatmentAssignment = assignTreatmentByVisitor(experimentId, identityId, allocationPercentages, treatments);
       break;
-    }
-    case RandomizationUnit.DEVICE: {
+    case RandomizationUnit.DEVICE:
       treatmentAssignment = assignTreatmentByDevice(experimentId, allocationPercentages, treatments);
       break;
-    }
     default:
       throw new Error("Unknown randomization unit");
   }
-  const evaluationResponse = {
+  return {
     experimentId,
     hashedBucket: treatmentAssignment.bucketId,
     treatment: {
       id: treatmentAssignment.treatmentId,
     },
   };
-  return evaluationResponse;
 }
 
 function traverseDecisionTree(decisionNodesMap, context, currentNodeId) {
@@ -178,7 +175,7 @@ function traverseDecisionTree(decisionNodesMap, context, currentNodeId) {
 
 function evaluateDecisionPolicy(decisionPolicy, context) {
   if (context.storage && context.storage instanceof Storage) {
-    storage = context.storage;
+    storage = context.storage; // handle const assignment error
   }
   const decisionNodesMap = {};
   decisionPolicy.decisionNodes.forEach((item) => {
@@ -190,6 +187,4 @@ function evaluateDecisionPolicy(decisionPolicy, context) {
   };
 }
 
-export const ued = { evaluateDecisionPolicy };
-
-/* eslint-enable camelcase, no-bitwise, func-names, max-len */
+export default { evaluateDecisionPolicy }; // Adjusted to prefer default export
