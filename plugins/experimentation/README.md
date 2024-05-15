@@ -7,10 +7,13 @@ To implement experimentation or personalization use-cases, please reach out to t
 ## Features
 
 The AEM Experimentation plugin supports:
+- :lock: privacy-first, as it doesn't use any, nor persists any, end-user data that could lead to their identification. No end-user opt-in nor cookie consent is required when using the default configuration that uses [AEM Edge Delivery Services Real User Monitoring](https://github.com/adobe/helix-rum-js/).*
 - :busts_in_silhouette: serving different content variations to different audiences, including custom audience definitions for your project that can be either resolved directly in-browser or against a trusted backend API.
-- :money_with_wings: serving different content variations based on marketing campaigns you are running, so that you can easily track email and/or social campaigns
+- :money_with_wings: serving different content variations based on marketing campaigns you are running, so that you can easily track email and/or social campaigns.
 - :chart_with_upwards_trend: running A/B test experiments on a set of variants to measure and improve the conversion on your site. This works particularly with our :chart: [RUM conversion tracking plugin](https://github.com/adobe/franklin-rum-conversion).
-- :rocket: easy simulation of each experience and basic reporting leveraging in-page overlays
+- :rocket: easy simulation of each experience and basic reporting leveraging in-page overlays.
+
+\* Bringing additional marketing technology such as visitor-based analytics or personalization to a project will cancel this privacy-first principle.
 
 ## Installation
 
@@ -25,6 +28,12 @@ git subtree pull --squash --prefix plugins/experimentation git@github.com:adobe/
 ```
 
 If you prefer using `https` links you'd replace `git@github.com:adobe/aem-experimentation.git` in the above commands by `https://github.com/adobe/aem-experimentation.git`.
+
+If the `subtree pull` command is failing with an error like:
+```
+fatal: can't squash-merge: 'plugins/experimentation' was never added
+```
+you can just delete the folder and re-add the plugin via the `git subtree add` command above.
 
 ## Project instrumentation
 
