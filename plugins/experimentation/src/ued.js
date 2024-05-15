@@ -1,6 +1,6 @@
 /* eslint-disable camelcase, no-bitwise, func-names, max-len */
 
-const storage = window.sessionStorage;
+let storage = window.sessionStorage;
 
 function murmurhash3_32_gc(key, seed) {
   const remainder = key.length & 3;
@@ -14,10 +14,7 @@ function murmurhash3_32_gc(key, seed) {
 
   while (i < bytes) {
     // Use parentheses to clarify the order of operations and align operators as per the ESLint config
-    k1 = (key.charCodeAt(i) & 0xff) 
-        | ((key.charCodeAt(i + 1) & 0xff) << 8) 
-        | ((key.charCodeAt(i + 2) & 0xff) << 16) 
-        | ((key.charCodeAt(i + 3) & 0xff) << 24);
+    k1 = (key.charCodeAt(i) & 0xff) | ((key.charCodeAt(i + 1) & 0xff) << 8) | ((key.charCodeAt(i + 2) & 0xff) << 16) | ((key.charCodeAt(i + 3) & 0xff) << 24);
     i += 4; // Increment i by 4 as we are processing four bytes each loop iteration
 
     k1 = ((((k1 & 0xffff) * c1) + ((((k1 >>> 16) * c1) & 0xffff) << 16))) & 0xffffffff;
@@ -147,7 +144,7 @@ function evaluateExperiment(context, experiment) {
   const { id: experimentId, identityNamespace, randomizationUnit = RandomizationUnit.VISITOR } = experiment;
   const { identityMap } = context;
   const treatments = experiment.treatments.map((item) => item.id);
-  const allocationPercentages = experiment.treatments.map((item) => item.allocationPercentage);  
+  const allocationPercentages = experiment.treatments.map((item) => item.allocationPercentage);
   let treatmentAssignment = null;
   let identityId;
   switch (randomizationUnit) {
@@ -181,7 +178,7 @@ function traverseDecisionTree(decisionNodesMap, context, currentNodeId) {
 
 function evaluateDecisionPolicy(decisionPolicy, context) {
   if (context.storage && context.storage instanceof Storage) {
-   const storage = context.storage; // handle const assignment error
+    storage = context.storage; // handle const assignment error
   }
   const decisionNodesMap = {};
   decisionPolicy.decisionNodes.forEach((item) => {
