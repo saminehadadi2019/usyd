@@ -13,7 +13,6 @@ import {
   loadCSS,
 } from './aem.js';
 
-
 const AUDIENCES = {
   mobile: () => window.innerWidth < 600,
   desktop: () => window.innerWidth >= 600,
@@ -23,7 +22,6 @@ const AUDIENCES = {
 // Setup HLX namespace and plugins configuration
 window.hlx = window.hlx || {};
 window.hlx.plugins = window.hlx.plugins || {};
-/* eslint-disable no-alert, no-console */
 window.hlx.plugins.add('experimentation', {
   condition: () => getMetadata('experiment')
     || Object.keys(getAllMetadata('campaign')).length
@@ -32,7 +30,6 @@ window.hlx.plugins.add('experimentation', {
   url: '/plugins/experimentation/src/index.js',
 });
 
-/* eslint-enable no-alert */
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
