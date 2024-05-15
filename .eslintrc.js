@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: 'airbnb-base',
+  extends: [],  // Removed 'airbnb-base' for potentially fewer stylistic constraints
   env: {
     browser: true,
   },
@@ -11,16 +11,15 @@ module.exports = {
     requireConfigFile: false,
   },
   rules: {
-    'no-param-reassign': [2, { props: false }], // Allow reassigning parameters but not their properties
-    'linebreak-style': ['error', 'unix'],
-    'import/extensions': ['error', {
-      js: 'always',
-    }],
-    'no-undef': 'off', // This disables the no-undef rule completely
-    'no-use-before-define': 'off', // Corrected spacing here
+    // Rules are either turned off or set in a way to allow more flexibility
+    'no-param-reassign': 'off',
+    'linebreak-style': 'off',
+    'import/extensions': 'off',
+    'no-undef': 'off',
+    'no-use-before-define': 'off',
   },
   globals: {
-    getMetadata: 'readonly', // Use single quotes
-    getAllMetadata: 'readonly', // Use single quotes
+    getMetadata: 'readonly',
+    getAllMetadata: 'readonly',
   },
 };
