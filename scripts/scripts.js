@@ -1,20 +1,3 @@
-const AUDIENCES = {
-  mobile: () => window.innerWidth < 600,
-  desktop: () => window.innerWidth >= 600,
-  // define your custom audiences here as needed
-};
-
-// Setup HLX namespace and plugins configuration
-window.hlx = window.hlx || {};
-window.hlx.plugins = window.hlx.plugins || {};
-window.hlx.plugins.add('experimentation', {
-  condition: () => getMetadata('experiment')
-    || Object.keys(getAllMetadata('campaign')).length
-    || Object.keys(getAllMetadata('audience')).length,
-  options: { audiences: AUDIENCES },
-  url: '/plugins/experimentation/src/index.js',
-});
-
 import {
   sampleRUM,
   buildBlock,
@@ -29,6 +12,29 @@ import {
   loadBlocks,
   loadCSS,
 } from './aem.js';
+
+
+const AUDIENCES = {
+  mobile: () => window.innerWidth < 600,
+  desktop: () => window.innerWidth >= 600,
+  // define your custom audiences here as needed
+};
+
+// Setup HLX namespace and plugins configuration
+window.hlx = window.hlx || {};
+window.hlx.plugins = window.hlx.plugins || {};
+window.hlx.plugins.add('experimentation', {
+  // eslint-disable-next-line no-use-before-define
+  condition: () => getMetadata('experiment')
+  // eslint-disable-next-line no-use-before-define
+    || Object.keys(getAllMetadata('campaign')).length
+    // eslint-disable-next-line no-use-before-define
+    || Object.keys(getAllMetadata('audience')).length,
+  options: { audiences: AUDIENCES },
+  url: '/plugins/experimentation/src/index.js',
+});
+
+
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
