@@ -16,12 +16,8 @@ import {
 // Define an execution context
 const pluginContext = {
   getAllMetadata,
-  getMetadata,
   loadCSS,
-  loadScript,
   sampleRUM,
-  toCamelCase,
-  toClassName,
 };
 
 const AUDIENCES = {
