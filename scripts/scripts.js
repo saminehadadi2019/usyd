@@ -159,7 +159,6 @@ function loadDelayed() {
   window.setTimeout(() => {
     window.hlx.plugins.load('delayed');
     window.hlx.plugins.run('loadDelayed');
-    // eslint-disable-next-line import/no-cycle
     return import('./delayed.js');
   }, 3000);
   // load anything that can be postponed to the latest here

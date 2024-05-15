@@ -6,6 +6,5 @@ sampleRUM('cwv');
 
 // add more delayed functionality here
 
-// import { sampleRUM } from './lib-aem.js';
 
 // sampleRUM('cwv');
