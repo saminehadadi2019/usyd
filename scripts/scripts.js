@@ -12,10 +12,10 @@ import {
   loadBlocks,
   loadCSS,
   getAllMetadata,
+  getMetadata,
   loadScript,
   toCamelCase,
   toClassName,
-  getMetadata,
 } from './aem.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -35,13 +35,19 @@ window.hlx.plugins.add('experimentation', {
 
 const pluginContext = {
   getAllMetadata,
+  getMetadata,
   loadCSS,
   loadScript,
   sampleRUM,
   toCamelCase,
   toClassName,
-  getMetadata,
 };
+
+// Add you templates below
+// window.hlx.templates.add('/templates/my-template');
+
+// Add you plugins below
+// window.hlx.plugins.add('/plugins/my-plugin.js');
 
 /**
  * Builds hero block and prepends to main in a new section.
@@ -87,6 +93,7 @@ function buildAutoBlocks(main) {
  * Decorates the main element.
  * @param {Element} main The main element
  */
+// eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
@@ -146,9 +153,6 @@ async function loadLazy(doc) {
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
   sampleRUM.observe(main.querySelectorAll('picture > img'));
-
-
-
 }
 
 /**
@@ -159,6 +163,7 @@ function loadDelayed() {
   window.setTimeout(() => {
     window.hlx.plugins.load('delayed');
     window.hlx.plugins.run('loadDelayed');
+    // eslint-disable-next-line import/no-cycle
     return import('./delayed.js');
   }, 3000);
   // load anything that can be postponed to the latest here
