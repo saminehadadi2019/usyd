@@ -1,39 +1,49 @@
+import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
+
 export default function decorate(block) {
-  // Create a map element and set its name
+
   const map = document.createElement('map');
-  map.name = 'myMap';
-  
-  // Create an image element and link it to the map
+  map.name = 'myMap'
   const image = document.createElement('img');
   image.src = 'https://i.ibb.co/S393wpr/map.png';
   image.alt = 'Image Description';
-  image.useMap = '#myMap'; // Links the image to the map
+  image.useMap = '#myMap';
   
-  // Create area1
   const area1 = document.createElement('area');
   area1.shape = 'circle';
   area1.coords = '200,200,90';
-  area1.href = 'javascript:void(0)'; // Prevents default behavior of <a> tag
-  area1.addEventListener('click', (event) => {
-    event.preventDefault(); // Prevents navigation
+  area1.addEventListener('click', () => {
     alert('Clicked on Area 1');
   });
-
-  // Create area2
+  area1.style.borderBlockColor = 'red';
+area1.href="#"
+  
   const area2 = document.createElement('area');
   area2.shape = 'circle';
   area2.coords = '780,780,140';
-  area2.href = 'javascript:void(0)'; // Prevents default behavior of <a> tag
-  area2.addEventListener('click', (event) => {
-    event.preventDefault(); // Prevents navigation
+  area2.addEventListener('click', () => {
     alert('Clicked on Area 2');
   });
-
-  // Append the areas to the map
-  map.appendChild(area1);
-  map.appendChild(area2);
+  area2.style.backgroundColor = 'blue';
+area2.href="#"
   
-  // Append the image and map to the block
+  image.addEventListener('click', () => {
+    console.log("I'm he")
+  });
+  map.append(area1);
+  map.append(area2);
+  
+  // Append the image and map to the document
   block.appendChild(image);
   block.appendChild(map);
+  
 }
+  
+  //block.append(image);
+  //block.append(map);
+  //block.append(map);
+
+
+
+// https://i.ibb.co/zrHVB4x/Screenshot-2023-05-22-at-11-49-29-PM.png
+// https://i.ibb.co/dPDsnL9/Design-for-all.png
