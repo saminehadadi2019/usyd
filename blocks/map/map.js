@@ -1,7 +1,7 @@
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 
 export default function decorate(block) {
-
+  try {
   const map = document.createElement('map');
   map.name = 'myMap'
   const image = document.createElement('img');
@@ -12,7 +12,7 @@ export default function decorate(block) {
   const area1 = document.createElement('area');
   area1.shape = 'circle';
   area1.coords = '200,200,90';
-  try {
+ 
     area1.addEventListener('click', () => {
       alert('Clicked on Area 1');
     });

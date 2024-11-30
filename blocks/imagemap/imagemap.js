@@ -3,6 +3,8 @@ import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 export default function decorate(block) {
   const text = block.textContent;
   //const text = "src=https://i.ibb.co/S393wpr/map.png;alt=carpet map;shape=circle;coord=200,200,90;alert=area 1;url='https://www.persianrugs.com.au/tabriz/';shape=circle;coord=780,780,140;alert=area 2;url='https://www.persianrugs.com.au/tabriz/'";
+ 
+  try {
   block.textContent = '';
   text.replace(/\s/g, '').trim;
   const srcRegex = /src=\s*([^;]+);/;
@@ -41,7 +43,6 @@ export default function decorate(block) {
   image.alt = alt;
   image.useMap = '#myMap';
 
-  try {
     for (let i = 0; i < shapes.length; i++) {
       const area = document.createElement('area');
       area.shape = shapes[i];
