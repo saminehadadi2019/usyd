@@ -55,14 +55,14 @@ export default function decorate(block) {
       area.href = urls[i];
       area.target = "_blank";
 
-     // map.append(area);
+      map.append(area);
     }
   } catch {
 
   }
   try {
-   // block.appendChild(image);
-   // block.appendChild(map);
+    block.appendChild(image);
+   block.appendChild(map);
   } catch {
 
   }
