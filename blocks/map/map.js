@@ -16,7 +16,7 @@ export default function decorate(block) {
     alert('Clicked on Area 1');
   });
   area1.style.borderBlockColor = 'red';
-area1.href="#"
+  area1.href="#"
   
   const area2 = document.createElement('area');
   area2.shape = 'circle';
@@ -25,7 +25,7 @@ area1.href="#"
     alert('Clicked on Area 2');
   });
   area2.style.backgroundColor = 'blue';
-area2.href="#"
+  area2.href="#"
   
   image.addEventListener('click', () => {
     console.log("I'm he")
@@ -39,9 +39,9 @@ area2.href="#"
   
 }
   
-  //block.append(image);
-  //block.append(map);
-  //block.append(map);
+  block.append(image);
+  block.append(map);
+  block.append(map);
 
 
 
