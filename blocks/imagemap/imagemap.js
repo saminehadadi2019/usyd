@@ -61,8 +61,8 @@ export default function decorate(block) {
 
   }
   try {
-    block.appendChild(image);
-   block.appendChild(map);
+   // block.appendChild(image);
+    //block.appendChild(map);
   } catch {
 
   }
