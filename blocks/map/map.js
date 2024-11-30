@@ -31,8 +31,8 @@ export default function decorate(block) {
     // image.addEventListener('click', () => {
     //   console.log("I'm he")
     // });
-     map.append(area1);
-    map.append(area2);
+   //  map.append(area1);
+    // map.append(area2);
   } catch {
 
   }
