@@ -1,4 +1,4 @@
-import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
+
 
 export default function decorate(block) {
   const iframe = document.createElement('iframe');
@@ -6,5 +6,5 @@ export default function decorate(block) {
   iframe.height = '600';
   iframe.src =new URL(block.textContent);
   block.textContent ='';
-  block.append(iframe);
+//  block.append(iframe);
 }
