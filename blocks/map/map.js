@@ -34,8 +34,8 @@ area2.href="#"
   map.append(area2);
   
   // Append the image and map to the document
-  block.appendChild(image);
-  block.appendChild(map);
+ // block.appendChild(image);
+  //block.appendChild(map);
   
 }
   
