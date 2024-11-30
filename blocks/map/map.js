@@ -38,8 +38,8 @@ export default function decorate(block) {
   }
 
   // Append the image and map to the document
-  // block.appendChild(image);
-  //block.appendChild(map);
+   block.appendChild(image);
+   block.appendChild(map);
 
 }
 
