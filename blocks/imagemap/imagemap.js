@@ -58,7 +58,7 @@ export default function decorate(block) {
       area.href = urlMatches[i] || 'javascript:void(0)'; // Prevent navigation if no URL
       area.target = '_blank'; // Open links in a new tab
       area.addEventListener('click', (event) => {
-        event.preventDefault(); // Prevent default behavior
+       // event.preventDefault(); // Prevent default behavior
         if (alertMatches[i]) {
           alert(alertMatches[i]);
         }
