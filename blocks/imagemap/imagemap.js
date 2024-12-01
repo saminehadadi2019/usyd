@@ -63,7 +63,7 @@ export default function decorate(block) {
     //   });
 
     //  map.appendChild(area);
-    }
+    //}
 
     // Append the image and map to the block
    // block.appendChild(image);
