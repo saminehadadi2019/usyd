@@ -34,8 +34,8 @@ export default function decorate(block) {
   console.log("messages:", messages);
   console.log("messages:", urls);
 
-  const map = document.createElement('map');
-  map.name = 'myMap'
+  //const map = document.createElement('map');
+  //map.name = 'myMap'
   const image = document.createElement('img');
   image.src = src;
   image.alt = alt;
