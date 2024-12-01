@@ -48,19 +48,19 @@ export default function decorate(block) {
     image.alt = alt;
     image.useMap = '#myMap';
 
-    // Dynamically create <area> elements based on parsed data
-    for (let i = 0; i < shapeMatches.length; i++) {
-      const area = document.createElement('area');
-      area.shape = shapeMatches[i];
-      area.coords = coordMatches[i] || ''; // Provide fallback for coordinates
-      area.href = urlMatches[i] || 'javascript:void(0)'; // Prevent default navigation if no URL
-      area.target = '_blank'; // Open in new tab if a URL is provided
-      area.addEventListener('click', (event) => {
-        event.preventDefault(); // Prevent default navigation
-        if (alertMatches[i]) {
-          alert(alertMatches[i]);
-        }
-      });
+    // // Dynamically create <area> elements based on parsed data
+    // for (let i = 0; i < shapeMatches.length; i++) {
+    //   const area = document.createElement('area');
+    //   area.shape = shapeMatches[i];
+    //   area.coords = coordMatches[i] || ''; // Provide fallback for coordinates
+    //   area.href = urlMatches[i] || 'javascript:void(0)'; // Prevent default navigation if no URL
+    //   area.target = '_blank'; // Open in new tab if a URL is provided
+    //   area.addEventListener('click', (event) => {
+    //     event.preventDefault(); // Prevent default navigation
+    //     if (alertMatches[i]) {
+    //       alert(alertMatches[i]);
+    //     }
+    //   });
 
     //  map.appendChild(area);
     }
