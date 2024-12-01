@@ -41,23 +41,23 @@ export default function decorate(block) {
   image.alt = alt;
   image.useMap = '#myMap';
 
-  for (let i = 0; i < shapes.length; i++) {
-    const area = document.createElement('area');
-    area.shape = shapes[i];
-    area.coords = coords[i];
-    area.addEventListener('click', () => {
-      if(messages[i])
-        alert(messages[i]);
-    });
-    area.style.borderBlockColor = 'red';
-    area.href = urls[i];
-    area.target ="_blank";
+  // for (let i = 0; i < shapes.length; i++) {
+  //   const area = document.createElement('area');
+  //   area.shape = shapes[i];
+  //   area.coords = coords[i];
+  //   area.addEventListener('click', () => {
+  //     if(messages[i])
+  //       alert(messages[i]);
+  //   });
+  //   area.style.borderBlockColor = 'red';
+  //   area.href = urls[i];
+  //   area.target ="_blank";
 
-    map.append(area);
-  }
+  //   map.append(area);
+  // }
  
   block.appendChild(image);
-  block.appendChild(map);
+ // block.appendChild(map);
 
 }
 
