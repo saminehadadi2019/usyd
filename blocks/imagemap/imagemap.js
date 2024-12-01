@@ -62,12 +62,12 @@ export default function decorate(block) {
         }
       });
 
-      map.appendChild(area);
+    //  map.appendChild(area);
     }
 
     // Append the image and map to the block
-    block.appendChild(image);
-    block.appendChild(map);
+   // block.appendChild(image);
+   // block.appendChild(map);
 
     console.log('Interactive map created successfully.');
   } catch (error) {
