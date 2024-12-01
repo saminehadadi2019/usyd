@@ -1,3 +1,5 @@
+import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
+
 export default function decorate(block) {
   const text = block.textContent.trim();
   block.textContent = '';
@@ -21,9 +23,20 @@ export default function decorate(block) {
       area.coords = coord.trim();
       area.href = url.trim();
       area.target = '_blank';
-      area.addEventListener('click', () => alert(alertMessage.trim()));
+
+      // Adding click listeners
+      area.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent default behavior (like navigating to `url`)
+        alert(alertMessage.trim());
+      });
+
       map.appendChild(area);
     }
+
+    // Adding an overall click listener for the image
+    image.addEventListener('click', () => {
+      console.log("Image clicked");
+    });
 
     block.appendChild(image);
     block.appendChild(map);
